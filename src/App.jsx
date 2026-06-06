@@ -64,7 +64,8 @@ async function fetchWithRetry(url, options, maxRetries = 3) {
   throw new Error('Max retry reached')
 }
 
-async function fetchFloxyPayData(indiaToken)
+async function fetchFloxyPayData(indiaToken) {
+
   const options = {
     method: 'GET',
 headers: {
