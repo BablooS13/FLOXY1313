@@ -4,7 +4,7 @@ import accountsFileUrl from './assets/accounts.xlsx?url'
 
 const BASE_URL = '/api/floxy'
 const TOKEN_STORAGE_KEY = 'floxpay-indiatoken'
-
+const REQUEST_LIMIT = 200
 const OUTPUT_HEADERS = [
   'rptNo',
   'orderNo',
