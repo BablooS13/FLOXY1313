@@ -2,9 +2,9 @@ import { useMemo, useState } from 'react'
 import * as XLSX from 'xlsx'
 import accountsFileUrl from './assets/accounts.xlsx?url'
 
-const BASE_URL = 'https://api.h5r1xc.xyz/xxapi/buyitoken/waitpayerpaymentslip'
+const BASE_URL = '/api/floxy'
 const REQUEST_LIMIT = 200
-const TOKEN_STORAGE_KEY = 'tivrapay-indiatoken'
+const TOKEN_STORAGE_KEY = 'floxpay-indiatoken'
 
 const OUTPUT_HEADERS = [
   'rptNo',
@@ -64,13 +64,13 @@ async function fetchWithRetry(url, options, maxRetries = 3) {
   throw new Error('Max retry reached')
 }
 
-async function fetchTivraPayData(indiaToken) {
+async function fetchFloxyPayData(indiaToken)
   const options = {
     method: 'GET',
 headers: {
   Accept: 'application/json',
   indiatoken: indiaToken,
-  'x-rs-cfg-tivpayreqgate': 'A7K9X2M8Q4P1Z'
+'x-rs-cfg-floxpayreqgate': 'N5R8T1YQ6WZX'
 },
   }
 
@@ -88,8 +88,7 @@ headers: {
       method: '1',
       date_asc: '1',
     })
-
-    const url = `${BASE_URL}?${params.toString()}`
+const url = `${BASE_URL}?token=${encodeURIComponent(indiaToken)}&page=${page}`
     const json = await fetchWithRetry(url, options)
 
     if (!json?.data?.list) {
@@ -206,8 +205,7 @@ function App() {
         throw new Error('No valid 4-digit account numbers in accounts.xlsx')
       }
 
-      const { total, allList } = await fetchTivraPayData(cleanToken)
-
+const { total, allList } = await fetchFloxyPayData(cleanToken)
       const normalizedApi = allList.map((item) => {
         const apiLast4 = extractLastFour(item.acctNo)
         const matches = accountMap.get(apiLast4) || []
