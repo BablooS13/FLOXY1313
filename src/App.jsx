@@ -2,8 +2,7 @@ import { useMemo, useState } from 'react'
 import * as XLSX from 'xlsx'
 import accountsFileUrl from './assets/accounts.xlsx?url'
 
-const BASE_URL = '/api/floxy'
-const REQUEST_LIMIT = 200
+const BASE_URL = 'https://api.plavix.skin/xxapi/buyitoken/waitpayerpaymentslip'
 const TOKEN_STORAGE_KEY = 'floxpay-indiatoken'
 
 const OUTPUT_HEADERS = [
